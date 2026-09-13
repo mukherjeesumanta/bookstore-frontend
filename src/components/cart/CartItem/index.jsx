@@ -8,7 +8,10 @@ export default function CartItem({ item }) {
   return (
     <li className="flex gap-4 py-5 border-b border-[#E8E4D9] last:border-0">
       {/* Cover */}
-      <Link to={`/books/${item.id}`} className="shrink-0 w-16 rounded-lg overflow-hidden bg-[#F0EDE4] border border-[#E8E4D9]">
+      <Link
+        to={`/books/${item.id}`}
+        className="shrink-0 w-16 rounded-lg overflow-hidden bg-[#F0EDE4] border border-[#E8E4D9]"
+      >
         <img
           src={item.cover}
           alt={item.title}

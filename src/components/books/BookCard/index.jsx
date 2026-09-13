@@ -7,7 +7,10 @@ export default function BookCard({ book }) {
 
   return (
     <article className="bg-white rounded-xl border border-[#E8E4D9] overflow-hidden flex flex-col hover:shadow-md transition-shadow">
-      <Link to={`/books/${book.id}`} className="block bg-[#F0EDE4] aspect-[3/4] overflow-hidden">
+      <Link
+        to={`/books/${book.id}`}
+        className="block bg-[#F0EDE4] aspect-[3/4] overflow-hidden"
+      >
         <img
           src={book.cover}
           alt={`Cover of ${book.title}`}
@@ -37,10 +40,14 @@ export default function BookCard({ book }) {
               />
             ))}
           </div>
-          <span className="text-xs text-[#7A7A68]">({book.reviewCount > 99 ? "124" : book.reviewCount})</span>
+          <span className="text-xs text-[#7A7A68]">
+            ({book.reviewCount > 99 ? "124" : book.reviewCount})
+          </span>
         </div>
 
-        <p className="text-sm font-bold text-[#1C1C1C] mb-3">${book.price.toFixed(2)}</p>
+        <p className="text-sm font-bold text-[#1C1C1C] mb-3">
+          ${book.price.toFixed(2)}
+        </p>
 
         <button
           onClick={() => addItem(book)}

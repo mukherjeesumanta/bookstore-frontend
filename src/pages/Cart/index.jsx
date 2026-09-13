@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 import { XMarkIcon } from "../../components/Icons";
 
-const SHIPPING = 6.50;
+const SHIPPING = 6.5;
 const TAX_RATE = 0.08;
 
 export default function Cart() {
@@ -18,7 +18,9 @@ export default function Cart() {
   if (cart.length === 0) {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
-        <h1 className="text-3xl font-bold text-[#2C3A1E] mb-4">Your Shopping Cart</h1>
+        <h1 className="text-3xl font-bold text-[#2C3A1E] mb-4">
+          Your Shopping Cart
+        </h1>
         <p className="text-[#7A7A68] mb-8">Your cart is empty.</p>
         <Link
           to="/catalogue"
@@ -32,7 +34,9 @@ export default function Cart() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <h1 className="text-3xl sm:text-4xl font-bold text-[#2C3A1E] mb-8">Your Shopping Cart</h1>
+      <h1 className="text-3xl sm:text-4xl font-bold text-[#2C3A1E] mb-8">
+        Your Shopping Cart
+      </h1>
 
       <div className="flex flex-col lg:flex-row gap-6">
         {/* Cart items table */}
@@ -75,7 +79,9 @@ export default function Cart() {
                         {item.title}
                       </h3>
                     </Link>
-                    <p className="text-xs text-[#7A7A68] mt-0.5">{item.author}</p>
+                    <p className="text-xs text-[#7A7A68] mt-0.5">
+                      {item.author}
+                    </p>
                     <p className="text-xs text-[#7A7A68]">Hardcover</p>
                   </div>
                 </div>
@@ -127,12 +133,18 @@ export default function Cart() {
         {/* Order summary */}
         <div className="lg:w-80 flex-shrink-0">
           <div className="bg-white rounded-xl border border-[#E8E4D9] p-6">
-            <h2 className="text-lg font-bold text-[#1C1C1C] mb-5">Order Summary</h2>
+            <h2 className="text-lg font-bold text-[#1C1C1C] mb-5">
+              Order Summary
+            </h2>
 
             <div className="space-y-3 text-sm mb-4">
               <div className="flex items-center justify-between">
-                <span className="text-[#5C5C4F]">Subtotal ({itemCount} item{itemCount !== 1 ? "s" : ""})</span>
-                <span className="font-medium text-[#1C1C1C]">${subtotal.toFixed(2)}</span>
+                <span className="text-[#5C5C4F]">
+                  Subtotal ({itemCount} item{itemCount !== 1 ? "s" : ""})
+                </span>
+                <span className="font-medium text-[#1C1C1C]">
+                  ${subtotal.toFixed(2)}
+                </span>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-[#5C5C4F]">Estimated Shipping</span>
@@ -142,20 +154,28 @@ export default function Cart() {
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-[#5C5C4F]">Estimated Tax</span>
-                <span className="font-medium text-[#1C1C1C]">${tax.toFixed(2)}</span>
+                <span className="font-medium text-[#1C1C1C]">
+                  ${tax.toFixed(2)}
+                </span>
               </div>
             </div>
 
             <div className="border-t border-[#E8E4D9] pt-4 mb-5">
               <div className="flex items-center justify-between">
-                <span className="font-bold text-[#2C3A1E] text-base">Order Total</span>
-                <span className="font-bold text-[#C4622D] text-base">${total.toFixed(2)}</span>
+                <span className="font-bold text-[#2C3A1E] text-base">
+                  Order Total
+                </span>
+                <span className="font-bold text-[#C4622D] text-base">
+                  ${total.toFixed(2)}
+                </span>
               </div>
             </div>
 
             {/* Promo code */}
             <div className="mb-5">
-              <p className="text-sm font-medium text-[#1C1C1C] mb-2">Promo Code</p>
+              <p className="text-sm font-medium text-[#1C1C1C] mb-2">
+                Promo Code
+              </p>
               <div className="flex gap-2">
                 <input
                   type="text"
@@ -185,7 +205,8 @@ export default function Cart() {
             </Link>
 
             <p className="text-xs text-[#9A9A85] text-center mt-4 leading-relaxed">
-              *Free shipping on orders over $100!<br />
+              *Free shipping on orders over $100!
+              <br />
               Express options available.*
             </p>
           </div>

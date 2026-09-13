@@ -38,12 +38,15 @@ export default function OrderSummary({
                   alt={item.title}
                   className="w-full h-full object-cover"
                   onError={(e) => {
-                    e.target.src = "https://placehold.co/40x48/e8e4d9/8a8070?text=B";
+                    e.target.src =
+                      "https://placehold.co/40x48/e8e4d9/8a8070?text=B";
                   }}
                 />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-xs font-semibold text-[#1C1C1C] truncate">{item.title}</p>
+                <p className="text-xs font-semibold text-[#1C1C1C] truncate">
+                  {item.title}
+                </p>
                 <p className="text-xs text-[#7A7A68] truncate">{item.author}</p>
                 {item.quantity > 1 && (
                   <p className="text-xs text-[#9A9A85]">Qty: {item.quantity}</p>
@@ -55,7 +58,9 @@ export default function OrderSummary({
             </div>
           ))}
           {items.length > maxItems && (
-            <p className="text-xs text-[#7A7A68]">+ {items.length - maxItems} more item(s)</p>
+            <p className="text-xs text-[#7A7A68]">
+              + {items.length - maxItems} more item(s)
+            </p>
           )}
         </div>
       )}
@@ -64,12 +69,16 @@ export default function OrderSummary({
       <div className="border-t border-[#E8E4D9] pt-3 space-y-2 text-sm mb-4">
         <div className="flex justify-between">
           <span className="text-[#5C5C4F]">Subtotal</span>
-          <span className="font-medium text-[#1C1C1C]">${subtotal.toFixed(2)}</span>
+          <span className="font-medium text-[#1C1C1C]">
+            ${subtotal.toFixed(2)}
+          </span>
         </div>
         <div className="flex justify-between">
           <span className="text-[#5C5C4F]">Shipping</span>
           <span className="font-medium text-[#1C1C1C]">
-            {shippingCost === 0 ? "Free" : `${shippingLabel} - $${shippingCost.toFixed(2)}`}
+            {shippingCost === 0
+              ? "Free"
+              : `${shippingLabel} - $${shippingCost.toFixed(2)}`}
           </span>
         </div>
         <div className="flex justify-between">
@@ -81,7 +90,9 @@ export default function OrderSummary({
       {/* Total */}
       <div className="border-t border-[#2C3A1E] pt-3 flex justify-between mb-4">
         <span className="font-bold text-[#1C1C1C] text-base">Total</span>
-        <span className="font-bold text-[#C4622D] text-base">${total.toFixed(2)}</span>
+        <span className="font-bold text-[#C4622D] text-base">
+          ${total.toFixed(2)}
+        </span>
       </div>
 
       {/* Optional footer slot */}

@@ -40,7 +40,10 @@ export default function InputField({
   return (
     <div className={className}>
       {label && (
-        <label htmlFor={fieldId} className="block text-xs font-medium text-[#5C5C4F] mb-1.5">
+        <label
+          htmlFor={fieldId}
+          className="block text-xs font-medium text-[#5C5C4F] mb-1.5"
+        >
           {label}
         </label>
       )}
@@ -50,14 +53,23 @@ export default function InputField({
           {children}
         </select>
       ) : as === "textarea" ? (
-        <textarea id={fieldId} name={name} className={`${fieldClass} resize-y`} {...rest} />
+        <textarea
+          id={fieldId}
+          name={name}
+          className={`${fieldClass} resize-y`}
+          {...rest}
+        />
       ) : (
-        <input id={fieldId} name={name} type={type} className={fieldClass} {...rest} />
+        <input
+          id={fieldId}
+          name={name}
+          type={type}
+          className={fieldClass}
+          {...rest}
+        />
       )}
 
-      {error && (
-        <p className="mt-1 text-xs text-[#C4622D]">{error}</p>
-      )}
+      {error && <p className="mt-1 text-xs text-[#C4622D]">{error}</p>}
     </div>
   );
 }

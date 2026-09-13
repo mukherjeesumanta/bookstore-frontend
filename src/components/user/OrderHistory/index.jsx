@@ -26,7 +26,9 @@ export default function OrderHistory({ orders = [] }) {
                 <span className="order-card__id">Order #{order.id}</span>
                 <span className="order-card__date">{order.date}</span>
               </div>
-              <span className="order-card__total">${order.total.toFixed(2)}</span>
+              <span className="order-card__total">
+                ${order.total.toFixed(2)}
+              </span>
             </div>
 
             {/* Item list */}
@@ -35,10 +37,14 @@ export default function OrderHistory({ orders = [] }) {
                 <li key={item.id} className="order-card__item">
                   <div className="order-card__item-info">
                     <span className="order-card__item-title">{item.title}</span>
-                    <span className="order-card__item-author">{item.author}</span>
+                    <span className="order-card__item-author">
+                      {item.author}
+                    </span>
                   </div>
                   <div className="order-card__item-price">
-                    <span className="order-card__item-qty">×{item.quantity}</span>
+                    <span className="order-card__item-qty">
+                      ×{item.quantity}
+                    </span>
                     <span>${(item.price * item.quantity).toFixed(2)}</span>
                   </div>
                 </li>

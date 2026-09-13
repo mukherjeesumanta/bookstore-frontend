@@ -8,8 +8,20 @@ const SAMPLE_ORDERS = [
     date: "March 12, 2024",
     total: 34.98,
     items: [
-      { id: 1, title: "The Hidden Forest", author: "Elara Vance", price: 24.99, quantity: 1 },
-      { id: 2, title: "Wuthering Heights", author: "Emily Brontë", price: 9.99, quantity: 1 },
+      {
+        id: 1,
+        title: "The Hidden Forest",
+        author: "Elara Vance",
+        price: 24.99,
+        quantity: 1,
+      },
+      {
+        id: 2,
+        title: "Wuthering Heights",
+        author: "Emily Brontë",
+        price: 9.99,
+        quantity: 1,
+      },
     ],
   },
 ];
@@ -49,7 +61,15 @@ describe("OrderHistory", () => {
         id: "LL002",
         date: "April 5, 2024",
         total: 14.99,
-        items: [{ id: 3, title: "Dune", author: "Frank Herbert", price: 14.99, quantity: 1 }],
+        items: [
+          {
+            id: 3,
+            title: "Dune",
+            author: "Frank Herbert",
+            price: 14.99,
+            quantity: 1,
+          },
+        ],
       },
     ];
     render(<OrderHistory orders={twoOrders} />);

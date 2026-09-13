@@ -2,16 +2,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2rem;          /* 32px */
+  width: 2rem; /* 32px */
   height: 2rem;
   border-radius: 50%;
   background-color: #c4622d;
   color: #ffffff;
-  font-size: 0.875rem;  /* 14px */
+  font-size: 0.875rem; /* 14px */
   font-weight: 600;
   border: none;
   cursor: pointer;
-  transition: background-color 0.15s ease, transform 0.1s ease;
+  transition:
+    background-color 0.15s ease,
+    transform 0.1s ease;
   flex-shrink: 0;
 }
 

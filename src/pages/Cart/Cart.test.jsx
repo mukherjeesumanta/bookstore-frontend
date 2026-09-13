@@ -1,10 +1,10 @@
-import { describe, it, expect } from 'vitest';
-import { render, screen, act } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { MemoryRouter } from 'react-router-dom';
-import { CartProvider, useCart } from '../../context/CartContext';
-import { books } from '../../data/books';
-import Cart from './index';
+import { describe, it, expect } from "vitest";
+import { render, screen, act } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { MemoryRouter } from "react-router-dom";
+import { CartProvider, useCart } from "../../context/CartContext";
+import { books } from "../../data/books";
+import Cart from "./index";
 
 function renderEmpty() {
   return render(
@@ -12,7 +12,7 @@ function renderEmpty() {
       <CartProvider>
         <Cart />
       </CartProvider>
-    </MemoryRouter>
+    </MemoryRouter>,
   );
 }
 
@@ -36,7 +36,7 @@ function _Loader({ book, children }) {
       <button
         data-testid="add-trigger"
         onClick={() => addItem(book)}
-        style={{ display: 'none' }}
+        style={{ display: "none" }}
       />
       {children}
     </>
@@ -51,50 +51,58 @@ async function renderWithItem() {
           <Cart />
         </_Loader>
       </CartProvider>
-    </MemoryRouter>
+    </MemoryRouter>,
   );
-  await userEvent.click(utils.getByTestId('add-trigger'));
+  await userEvent.click(utils.getByTestId("add-trigger"));
   return utils;
 }
 
-describe('Cart page', () => {
-  it('renders empty cart state', () => {
+describe("Cart page", () => {
+  it("renders empty cart state", () => {
     renderEmpty();
     expect(screen.getByText(/your cart is empty/i)).toBeInTheDocument();
   });
 
-  it('renders Browse Books link when empty', () => {
+  it("renders Browse Books link when empty", () => {
     renderEmpty();
-    expect(screen.getByRole('link', { name: /browse books/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: /browse books/i }),
+    ).toBeInTheDocument();
   });
 
-  it('renders cart heading when items present', async () => {
+  it("renders cart heading when items present", async () => {
     await renderWithItem();
-    expect(screen.getByText('Your Shopping Cart')).toBeInTheDocument();
+    expect(screen.getByText("Your Shopping Cart")).toBeInTheDocument();
   });
 
-  it('renders book title in cart when items present', async () => {
+  it("renders book title in cart when items present", async () => {
     await renderWithItem();
-    expect(screen.getByText('The Pragmatic Programmer')).toBeInTheDocument();
+    expect(screen.getByText("The Pragmatic Programmer")).toBeInTheDocument();
   });
 
-  it('renders Order Summary panel', async () => {
+  it("renders Order Summary panel", async () => {
     await renderWithItem();
-    expect(screen.getByText('Order Summary')).toBeInTheDocument();
+    expect(screen.getByText("Order Summary")).toBeInTheDocument();
   });
 
-  it('renders Proceed to Checkout button', async () => {
+  it("renders Proceed to Checkout button", async () => {
     await renderWithItem();
-    expect(screen.getByRole('button', { name: /proceed to checkout/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /proceed to checkout/i }),
+    ).toBeInTheDocument();
   });
 
-  it('renders Continue Shopping link', async () => {
+  it("renders Continue Shopping link", async () => {
     await renderWithItem();
-    expect(screen.getByRole('link', { name: /continue shopping/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: /continue shopping/i }),
+    ).toBeInTheDocument();
   });
 
-  it('renders promo code input', async () => {
+  it("renders promo code input", async () => {
     await renderWithItem();
-    expect(screen.getByPlaceholderText(/add discount code/i)).toBeInTheDocument();
+    expect(
+      screen.getByPlaceholderText(/add discount code/i),
+    ).toBeInTheDocument();
   });
 });

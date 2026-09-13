@@ -8,7 +8,7 @@ function cartReducer(state, action) {
       const existing = state.find((i) => i.id === action.book.id);
       if (existing) {
         return state.map((i) =>
-          i.id === action.book.id ? { ...i, quantity: i.quantity + 1 } : i
+          i.id === action.book.id ? { ...i, quantity: i.quantity + 1 } : i,
         );
       }
       return [...state, { ...action.book, quantity: 1 }];
@@ -20,7 +20,7 @@ function cartReducer(state, action) {
         return state.filter((i) => i.id !== action.id);
       }
       return state.map((i) =>
-        i.id === action.id ? { ...i, quantity: action.quantity } : i
+        i.id === action.id ? { ...i, quantity: action.quantity } : i,
       );
     }
     case "CLEAR_CART":
@@ -44,7 +44,15 @@ export function CartProvider({ children }) {
 
   return (
     <CartContext.Provider
-      value={{ cart, addItem, removeItem, updateQuantity, clearCart, itemCount, subtotal }}
+      value={{
+        cart,
+        addItem,
+        removeItem,
+        updateQuantity,
+        clearCart,
+        itemCount,
+        subtotal,
+      }}
     >
       {children}
     </CartContext.Provider>

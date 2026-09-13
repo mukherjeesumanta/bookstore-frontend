@@ -12,7 +12,11 @@ export default function LoadingSpinner({
   label = "Loading…",
 }) {
   return (
-    <span role="status" aria-label={label} className={`inline-block ${className}`}>
+    <span
+      role="status"
+      aria-label={label}
+      className={`inline-block ${className}`}
+    >
       <svg
         className={`animate-spin ${size}`}
         xmlns="http://www.w3.org/2000/svg"

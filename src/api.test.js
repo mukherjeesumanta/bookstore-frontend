@@ -17,19 +17,29 @@ describe("bookstore API client", () => {
 
     expect(fetch).toHaveBeenCalledWith(
       "http://localhost:4000/api/catalogue?q=clean+code&category=Programming",
-      expect.objectContaining({ headers: { "Content-Type": "application/json" } })
+      expect.objectContaining({
+        headers: { "Content-Type": "application/json" },
+      }),
     );
   });
 
   it("adds the JWT when requesting the protected profile API", async () => {
     localStorage.setItem("bookstore_token", "token");
-    vi.spyOn(globalThis, "fetch").mockResolvedValue({ ok: true, json: async () => ({ user: {} }) });
+    vi.spyOn(globalThis, "fetch").mockResolvedValue({
+      ok: true,
+      json: async () => ({ user: {} }),
+    });
 
     await api.profile();
 
     expect(fetch).toHaveBeenCalledWith(
       "http://localhost:4000/api/profile",
-      expect.objectContaining({ headers: { "Content-Type": "application/json", Authorization: "Bearer token" } })
+      expect.objectContaining({
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer token",
+        },
+      }),
     );
   });
 });

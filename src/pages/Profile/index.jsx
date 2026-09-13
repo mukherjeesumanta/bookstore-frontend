@@ -10,7 +10,11 @@ export default function Profile() {
   const [profile, setProfile] = useState(user);
 
   useEffect(() => {
-    if (isLoggedIn) api.profile().then(({ user: remoteUser }) => setProfile(remoteUser)).catch(() => {});
+    if (isLoggedIn)
+      api
+        .profile()
+        .then(({ user: remoteUser }) => setProfile(remoteUser))
+        .catch(() => {});
   }, [isLoggedIn]);
 
   // Guard: redirect unauthenticated visitors — declarative to avoid setState-during-render

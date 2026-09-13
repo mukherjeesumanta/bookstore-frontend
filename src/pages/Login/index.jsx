@@ -51,9 +51,15 @@ export default function Login() {
         </Link>
 
         <h1 className="login-title">Sign in</h1>
-        <p className="login-subtitle">Welcome back — please enter your details.</p>
+        <p className="login-subtitle">
+          Welcome back — please enter your details.
+        </p>
 
-        <form onSubmit={handleSubmit(onSubmit)} noValidate className="login-form">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          noValidate
+          className="login-form"
+        >
           {/* Root / server error */}
           {errors.root && (
             <p role="alert" className="login-error-banner">
@@ -101,7 +107,11 @@ export default function Login() {
             )}
           </div>
 
-          <button type="submit" disabled={isSubmitting} className="login-submit">
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="login-submit"
+          >
             {isSubmitting ? "Signing in…" : "Sign in"}
           </button>
         </form>

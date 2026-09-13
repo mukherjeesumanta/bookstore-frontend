@@ -18,10 +18,12 @@ vi.mock("react-router-dom", async (importOriginal) => {
 function renderWithAuth(user) {
   return render(
     <MemoryRouter>
-      <AuthContext.Provider value={{ user, isLoggedIn: !!user, login: vi.fn(), logout: vi.fn() }}>
+      <AuthContext.Provider
+        value={{ user, isLoggedIn: !!user, login: vi.fn(), logout: vi.fn() }}
+      >
         <UserAvatar />
       </AuthContext.Provider>
-    </MemoryRouter>
+    </MemoryRouter>,
   );
 }
 
@@ -30,17 +32,23 @@ describe("UserAvatar", () => {
 
   it("renders the first letter of the user name", () => {
     renderWithAuth({ name: "Alex Reader", username: "alexreader", orders: [] });
-    expect(screen.getByRole("button", { name: /go to profile/i })).toHaveTextContent("A");
+    expect(
+      screen.getByRole("button", { name: /go to profile/i }),
+    ).toHaveTextContent("A");
   });
 
   it("renders '?' when no user is provided", () => {
     renderWithAuth(null);
-    expect(screen.getByRole("button", { name: /go to profile/i })).toHaveTextContent("?");
+    expect(
+      screen.getByRole("button", { name: /go to profile/i }),
+    ).toHaveTextContent("?");
   });
 
   it("navigates to /profile when clicked", async () => {
     renderWithAuth({ name: "Bob", username: "bob", orders: [] });
-    await userEvent.click(screen.getByRole("button", { name: /go to profile/i }));
+    await userEvent.click(
+      screen.getByRole("button", { name: /go to profile/i }),
+    );
     expect(mockNavigate).toHaveBeenCalledWith("/profile");
   });
 

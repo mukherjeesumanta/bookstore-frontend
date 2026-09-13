@@ -1,15 +1,15 @@
-import { Routes, Route } from 'react-router-dom'
-import Navbar from './components/layout/Navbar'
-import Footer from './components/layout/Footer'
-import Home from './pages/Home'
-import Catalogue from './pages/Catalogue'
-import BookDetails from './pages/BookDetails'
-import Cart from './pages/Cart'
-import Checkout from './pages/Checkout'
-import Payment from './pages/Payment'
-import OrderConfirmation from './pages/OrderConfirmation'
-import Login from './pages/Login'
-import Profile from './pages/Profile'
+import { Routes, Route } from "react-router-dom";
+import Navbar from "./components/layout/Navbar";
+import Footer from "./components/layout/Footer";
+import Home from "./pages/Home";
+import Catalogue from "./pages/Catalogue";
+import BookDetails from "./pages/BookDetails";
+import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
+import Payment from "./pages/Payment";
+import OrderConfirmation from "./pages/OrderConfirmation";
+import Login from "./pages/Login";
+import Profile from "./pages/Profile";
 
 export default function App() {
   return (
@@ -30,5 +30,5 @@ export default function App() {
       </main>
       <Footer />
     </div>
-  )
+  );
 }

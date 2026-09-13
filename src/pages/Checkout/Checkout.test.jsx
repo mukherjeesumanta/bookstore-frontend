@@ -1,8 +1,8 @@
-import { describe, it, expect } from 'vitest';
-import { render, screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-import { CartProvider } from '../../context/CartContext';
-import Checkout from './index';
+import { describe, it, expect } from "vitest";
+import { render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
+import { CartProvider } from "../../context/CartContext";
+import Checkout from "./index";
 
 function renderCheckout() {
   return render(
@@ -10,59 +10,61 @@ function renderCheckout() {
       <CartProvider>
         <Checkout />
       </CartProvider>
-    </MemoryRouter>
+    </MemoryRouter>,
   );
 }
 
-describe('Checkout page', () => {
-  it('renders the step indicator', () => {
+describe("Checkout page", () => {
+  it("renders the step indicator", () => {
     renderCheckout();
-    expect(screen.getByText('Checkout')).toBeInTheDocument();
-    expect(screen.getByText('Payment')).toBeInTheDocument();
+    expect(screen.getByText("Checkout")).toBeInTheDocument();
+    expect(screen.getByText("Payment")).toBeInTheDocument();
   });
 
-  it('renders Contact Information section', () => {
+  it("renders Contact Information section", () => {
     renderCheckout();
-    expect(screen.getByText('Contact Information')).toBeInTheDocument();
+    expect(screen.getByText("Contact Information")).toBeInTheDocument();
   });
 
-  it('renders name field with pre-filled value', () => {
+  it("renders name field with pre-filled value", () => {
     renderCheckout();
-    expect(screen.getByDisplayValue('John Doe')).toBeInTheDocument();
+    expect(screen.getByDisplayValue("John Doe")).toBeInTheDocument();
   });
 
-  it('renders email field with pre-filled value', () => {
+  it("renders email field with pre-filled value", () => {
     renderCheckout();
-    expect(screen.getByDisplayValue('john.doe@email.com')).toBeInTheDocument();
+    expect(screen.getByDisplayValue("john.doe@email.com")).toBeInTheDocument();
   });
 
-  it('renders Shipping Address section', () => {
+  it("renders Shipping Address section", () => {
     renderCheckout();
-    expect(screen.getByText('Shipping Address')).toBeInTheDocument();
+    expect(screen.getByText("Shipping Address")).toBeInTheDocument();
   });
 
-  it('renders Delivery Method section', () => {
+  it("renders Delivery Method section", () => {
     renderCheckout();
-    expect(screen.getByText('Delivery Method')).toBeInTheDocument();
+    expect(screen.getByText("Delivery Method")).toBeInTheDocument();
   });
 
-  it('renders Standard Shipping option', () => {
+  it("renders Standard Shipping option", () => {
     renderCheckout();
-    expect(screen.getByText('Standard Shipping')).toBeInTheDocument();
+    expect(screen.getByText("Standard Shipping")).toBeInTheDocument();
   });
 
-  it('renders Express Shipping option', () => {
+  it("renders Express Shipping option", () => {
     renderCheckout();
-    expect(screen.getByText('Express Shipping')).toBeInTheDocument();
+    expect(screen.getByText("Express Shipping")).toBeInTheDocument();
   });
 
-  it('renders Continue to Payment button', () => {
+  it("renders Continue to Payment button", () => {
     renderCheckout();
-    expect(screen.getByRole('button', { name: /continue to payment/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /continue to payment/i }),
+    ).toBeInTheDocument();
   });
 
-  it('renders Order Summary panel', () => {
+  it("renders Order Summary panel", () => {
     renderCheckout();
-    expect(screen.getByText('Order Summary')).toBeInTheDocument();
+    expect(screen.getByText("Order Summary")).toBeInTheDocument();
   });
 });

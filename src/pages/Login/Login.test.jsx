@@ -15,10 +15,12 @@ vi.mock("react-router-dom", async (importOriginal) => {
 function renderLogin({ login = vi.fn(), isLoggedIn = false } = {}) {
   return render(
     <MemoryRouter>
-      <AuthContext.Provider value={{ user: null, isLoggedIn, login, logout: vi.fn() }}>
+      <AuthContext.Provider
+        value={{ user: null, isLoggedIn, login, logout: vi.fn() }}
+      >
         <Login />
       </AuthContext.Provider>
-    </MemoryRouter>
+    </MemoryRouter>,
   );
 }
 
@@ -31,7 +33,9 @@ describe("Login page", () => {
 
   it("renders a submit button", () => {
     renderLogin();
-    expect(screen.getByRole("button", { name: /sign in/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /sign in/i }),
+    ).toBeInTheDocument();
   });
 
   it("shows validation error when username is too short", async () => {
@@ -39,7 +43,7 @@ describe("Login page", () => {
     await userEvent.type(screen.getByLabelText(/username/i), "ab");
     await userEvent.click(screen.getByRole("button", { name: /sign in/i }));
     await waitFor(() =>
-      expect(screen.getByText(/at least 3 characters/i)).toBeInTheDocument()
+      expect(screen.getByText(/at least 3 characters/i)).toBeInTheDocument(),
     );
   });
 
@@ -49,7 +53,7 @@ describe("Login page", () => {
     await userEvent.type(screen.getByLabelText(/password/i), "123");
     await userEvent.click(screen.getByRole("button", { name: /sign in/i }));
     await waitFor(() =>
-      expect(screen.getByText(/at least 6 characters/i)).toBeInTheDocument()
+      expect(screen.getByText(/at least 6 characters/i)).toBeInTheDocument(),
     );
   });
 
@@ -59,8 +63,10 @@ describe("Login page", () => {
     // yup trims empty string first, so min(3) fires before required
     await waitFor(() =>
       expect(
-        screen.getByText(/username must be at least 3 characters|username is required/i)
-      ).toBeInTheDocument()
+        screen.getByText(
+          /username must be at least 3 characters|username is required/i,
+        ),
+      ).toBeInTheDocument(),
     );
   });
 
@@ -76,7 +82,7 @@ describe("Login page", () => {
       expect(mockLogin).toHaveBeenCalledWith({
         username: "alexreader",
         password: "password123",
-      })
+      }),
     );
   });
 
@@ -89,12 +95,14 @@ describe("Login page", () => {
     await userEvent.click(screen.getByRole("button", { name: /sign in/i }));
 
     await waitFor(() =>
-      expect(mockNavigate).toHaveBeenCalledWith("/", { replace: true })
+      expect(mockNavigate).toHaveBeenCalledWith("/", { replace: true }),
     );
   });
 
   it("shows error banner on failed login", async () => {
-    const mockLogin = vi.fn().mockResolvedValue({ success: false, message: "Invalid credentials." });
+    const mockLogin = vi
+      .fn()
+      .mockResolvedValue({ success: false, message: "Invalid credentials." });
     renderLogin({ login: mockLogin });
 
     await userEvent.type(screen.getByLabelText(/username/i), "alexreader");
@@ -102,7 +110,9 @@ describe("Login page", () => {
     await userEvent.click(screen.getByRole("button", { name: /sign in/i }));
 
     await waitFor(() =>
-      expect(screen.getByRole("alert")).toHaveTextContent(/invalid credentials/i)
+      expect(screen.getByRole("alert")).toHaveTextContent(
+        /invalid credentials/i,
+      ),
     );
   });
 });

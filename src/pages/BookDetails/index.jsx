@@ -27,7 +27,10 @@ export default function BookDetails() {
   const [book, setBook] = useState(localBooks.find((item) => item.id === id));
 
   useEffect(() => {
-    api.book(id).then(({ book: remoteBook }) => setBook(remoteBook)).catch(() => {});
+    api
+      .book(id)
+      .then(({ book: remoteBook }) => setBook(remoteBook))
+      .catch(() => {});
   }, [id]);
 
   const related = localBooks.filter((item) => item.id !== id).slice(0, 5);
@@ -35,7 +38,9 @@ export default function BookDetails() {
   if (!book) {
     return (
       <div className="max-w-7xl mx-auto px-4 py-20 text-center">
-        <h1 className="text-2xl font-bold text-[#1C1C1C] mb-4">Book not found</h1>
+        <h1 className="text-2xl font-bold text-[#1C1C1C] mb-4">
+          Book not found
+        </h1>
         <Link to="/catalogue" className="text-[#C4622D] hover:underline">
           Back to Catalogue
         </Link>
@@ -52,9 +57,17 @@ export default function BookDetails() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-2 text-sm text-[#7A7A68] mb-8">
-          <Link to="/catalogue" className="hover:text-[#C4622D] transition-colors">Catalogue</Link>
+          <Link
+            to="/catalogue"
+            className="hover:text-[#C4622D] transition-colors"
+          >
+            Catalogue
+          </Link>
           <span>/</span>
-          <Link to={`/catalogue?cat=${encodeURIComponent(book.category)}`} className="hover:text-[#C4622D] transition-colors">
+          <Link
+            to={`/catalogue?cat=${encodeURIComponent(book.category)}`}
+            className="hover:text-[#C4622D] transition-colors"
+          >
             {book.category}
           </Link>
           <span>/</span>
@@ -79,24 +92,34 @@ export default function BookDetails() {
 
           {/* Details */}
           <div className="flex-1 min-w-0">
-            <h1 className="text-3xl sm:text-4xl font-bold text-[#2C3A1E] mb-2">{book.title}</h1>
+            <h1 className="text-3xl sm:text-4xl font-bold text-[#2C3A1E] mb-2">
+              {book.title}
+            </h1>
             <p className="text-lg text-[#5C5C4F] mb-3">{book.author}</p>
 
             <div className="flex items-center gap-2 mb-2">
               <StarRating rating={book.rating} />
-              <span className="text-sm text-[#7A7A68]">({book.reviewCount.toLocaleString()} reviews)</span>
+              <span className="text-sm text-[#7A7A68]">
+                ({book.reviewCount.toLocaleString()} reviews)
+              </span>
             </div>
 
-            <p className="text-sm text-[#7A7A68] mb-5">{book.category} / Magical Realism</p>
+            <p className="text-sm text-[#7A7A68] mb-5">
+              {book.category} / Magical Realism
+            </p>
 
             <div className="flex items-center gap-3 mb-4">
-              <span className="text-3xl font-bold text-[#1C1C1C]">${book.price.toFixed(2)}</span>
+              <span className="text-3xl font-bold text-[#1C1C1C]">
+                ${book.price.toFixed(2)}
+              </span>
               <span className="px-3 py-1 rounded-full bg-[#2C3A1E] text-[#FAF9F5] text-xs font-medium">
                 Forest Green
               </span>
             </div>
 
-            <p className="text-sm text-[#5C5C4F] leading-relaxed mb-8 max-w-lg">{book.description}</p>
+            <p className="text-sm text-[#5C5C4F] leading-relaxed mb-8 max-w-lg">
+              {book.description}
+            </p>
 
             {/* Quantity + Add to Cart */}
             <div className="flex items-center gap-4 flex-wrap">
@@ -108,7 +131,9 @@ export default function BookDetails() {
                 >
                   −
                 </button>
-                <span className="w-10 text-center text-sm font-medium text-[#1C1C1C]">{qty}</span>
+                <span className="w-10 text-center text-sm font-medium text-[#1C1C1C]">
+                  {qty}
+                </span>
                 <button
                   onClick={() => setQty((q) => q + 1)}
                   className="w-10 h-10 flex items-center justify-center text-[#5C5C4F] hover:bg-[#F0EDE4] transition-colors text-lg font-medium"
@@ -137,7 +162,9 @@ export default function BookDetails() {
 
         {/* You May Also Like */}
         <section className="mb-12">
-          <h2 className="text-xl font-bold text-[#1C1C1C] mb-6">You May Also Like</h2>
+          <h2 className="text-xl font-bold text-[#1C1C1C] mb-6">
+            You May Also Like
+          </h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
             {related.map((rel) => (
               <Link key={rel.id} to={`/books/${rel.id}`} className="group">
@@ -161,8 +188,12 @@ export default function BookDetails() {
                   <span className="text-xs text-[#7A7A68]">(3)</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-xs font-bold text-[#1C1C1C]">${rel.price.toFixed(2)}</span>
-                  <span className={`text-xs px-1.5 py-0.5 rounded ${rel.inStock ? "bg-[#EAF2E6] text-[#2C5A1E]" : "bg-red-50 text-red-600"}`}>
+                  <span className="text-xs font-bold text-[#1C1C1C]">
+                    ${rel.price.toFixed(2)}
+                  </span>
+                  <span
+                    className={`text-xs px-1.5 py-0.5 rounded ${rel.inStock ? "bg-[#EAF2E6] text-[#2C5A1E]" : "bg-red-50 text-red-600"}`}
+                  >
                     {rel.inStock ? "In Stock" : "Out of Stock"}
                   </span>
                 </div>
