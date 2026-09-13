@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
-import { books } from "../../data/books";
+import { books as localBooks } from "../../data/books";
+import { api } from "../../api";
 import { useCart } from "../../context/CartContext";
 import { StarIcon, ChevronRightIcon } from "../../components/Icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const CATEGORIES = ["Fiction", "Non-Fiction", "Classics", "Sci-Fi/Fantasy", "Mystery", "Young Adult"];
 
@@ -105,6 +106,12 @@ function StaffPickCard({ book }) {
 
 export default function Home() {
   const [email, setEmail] = useState("");
+  const [books, setBooks] = useState(localBooks);
+
+  useEffect(() => {
+    api.home().then(({ featured }) => setBooks(featured)).catch(() => setBooks(localBooks));
+  }, []);
+
   const featured = books.filter((b) => b.featured).slice(0, 4);
   const staffPicks = books.slice(0, 4);
 

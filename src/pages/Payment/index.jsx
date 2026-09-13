@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
+import { api } from "../../api";
 import { LockClosedIcon } from "../../components/Icons";
 
 const PROGRESS_STEPS = [
@@ -61,7 +62,7 @@ export default function Payment() {
   const handleChange = (e) =>
     setCardForm((f) => ({ ...f, [e.target.name]: e.target.value }));
 
-  const handlePlaceOrder = (e) => {
+  const handlePlaceOrder = async (e) => {
     e.preventDefault();
     const orderSnapshot = {
       orderId: "LL" + Math.floor(Math.random() * 9000000000 + 1000000000),
@@ -79,6 +80,19 @@ export default function Payment() {
         return `${fmt(from)} - ${fmt(to)}`;
       })(),
     };
+    try {
+      const { order } = await api.payment({
+        items: cart,
+        shippingMethod: "standard",
+        shippingAddress: orderSnapshot.shippingAddress,
+        paymentMethod: orderSnapshot.paymentMethod,
+        estimatedDelivery: orderSnapshot.estimatedDelivery,
+      });
+      orderSnapshot.orderId = order.id;
+      Object.assign(orderSnapshot, order);
+    } catch {
+      // Keep the existing receipt flow when the API is unavailable.
+    }
     clearCart();
     navigate("/order-confirmation", { state: { order: orderSnapshot } });
   };

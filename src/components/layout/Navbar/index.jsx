@@ -1,16 +1,26 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useCart } from "../../../context/CartContext";
+import { useAuth } from "../../../context/AuthContext";
+import UserAvatar from "../../user/avatar/UserAvatar";
 import { ShoppingCartIcon, Bars3Icon, XMarkIcon } from "../../Icons";
 import { useState } from "react";
 
 export default function Navbar() {
   const { itemCount } = useCart();
+  const { isLoggedIn, logout } = useAuth();
+  const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const navLinks = [
     { to: "/", label: "Home" },
     { to: "/catalogue", label: "Catalogue" },
   ];
+
+  function handleLogout() {
+    logout();
+    setMenuOpen(false);
+    navigate("/", { replace: true });
+  }
 
   return (
     <header className="sticky top-0 z-50 bg-[#FAF9F5] border-b border-[#E8E4D9]">
@@ -54,13 +64,28 @@ export default function Navbar() {
               )}
             </Link>
 
-            {/* User avatar placeholder */}
-            <div className="w-8 h-8 rounded-full bg-[#C4622D] text-white flex items-center justify-center text-sm font-semibold">
-              A
-            </div>
+            {/* Auth controls */}
+            {isLoggedIn ? (
+              <>
+                <UserAvatar />
+                <button
+                  onClick={handleLogout}
+                  className="text-sm font-medium text-[#5C5C4F] hover:text-[#1C1C1C] transition-colors"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <Link
+                to="/login"
+                className="text-sm font-medium text-[#5C5C4F] hover:text-[#1C1C1C] transition-colors"
+              >
+                Login
+              </Link>
+            )}
           </nav>
 
-          {/* Mobile: cart + hamburger */}
+          {/* Mobile: cart + (login icon or hamburger) */}
           <div className="flex sm:hidden items-center gap-3">
             <Link
               to="/cart"
@@ -74,6 +99,21 @@ export default function Navbar() {
                 </span>
               )}
             </Link>
+
+            {/* Show login icon when logged out */}
+            {!isLoggedIn && (
+              <Link
+                to="/login"
+                className="p-2 text-[#5C5C4F] hover:text-[#1C1C1C] transition-colors"
+                aria-label="Login"
+              >
+                {/* Person icon */}
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.75} viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 7.5a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.5 19.5a7.5 7.5 0 0 1 15 0" />
+                </svg>
+              </Link>
+            )}
+
             <button
               className="p-2 text-[#5C5C4F] hover:text-[#1C1C1C] transition-colors"
               onClick={() => setMenuOpen((o) => !o)}
@@ -103,6 +143,36 @@ export default function Navbar() {
               {label}
             </NavLink>
           ))}
+
+          {isLoggedIn ? (
+            <>
+              <NavLink
+                to="/profile"
+                onClick={() => setMenuOpen(false)}
+                className={({ isActive }) =>
+                  `block py-2 text-sm font-medium ${isActive ? "text-[#1C1C1C]" : "text-[#5C5C4F]"}`
+                }
+              >
+                Profile
+              </NavLink>
+              <button
+                onClick={handleLogout}
+                className="block py-2 text-sm font-medium text-[#5C5C4F] w-full text-left"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <NavLink
+              to="/login"
+              onClick={() => setMenuOpen(false)}
+              className={({ isActive }) =>
+                `block py-2 text-sm font-medium ${isActive ? "text-[#1C1C1C]" : "text-[#5C5C4F]"}`
+              }
+            >
+              Login
+            </NavLink>
+          )}
         </nav>
       )}
     </header>

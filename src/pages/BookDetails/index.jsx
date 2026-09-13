@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { books } from "../../data/books";
+import { books as localBooks } from "../../data/books";
+import { api } from "../../api";
 import { useCart } from "../../context/CartContext";
 import { StarIcon } from "../../components/Icons";
 
@@ -23,9 +24,13 @@ export default function BookDetails() {
   const navigate = useNavigate();
   const { addItem } = useCart();
   const [qty, setQty] = useState(1);
+  const [book, setBook] = useState(localBooks.find((item) => item.id === id));
 
-  const book = books.find((b) => b.id === id);
-  const related = books.filter((b) => b.id !== id).slice(0, 5);
+  useEffect(() => {
+    api.book(id).then(({ book: remoteBook }) => setBook(remoteBook)).catch(() => {});
+  }, [id]);
+
+  const related = localBooks.filter((item) => item.id !== id).slice(0, 5);
 
   if (!book) {
     return (

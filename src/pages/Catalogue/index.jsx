@@ -1,12 +1,12 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { books, categories } from "../../data/books";
+import { books as localBooks, categories } from "../../data/books";
+import { api } from "../../api";
 import { useCart } from "../../context/CartContext";
 import { StarIcon, ShoppingCartIcon, MagnifyingGlassIcon } from "../../components/Icons";
 
 const SORT_OPTIONS = ["Featured", "Newest", "Price: Low to High", "Price: High to Low", "Highest Rated"];
 const FILTER_CATEGORIES = ["All", "Fiction", "Mystery", "Sci-Fi", "History", "Romance", "Biography", ...categories];
-const UNIQUE_CATS = [...new Set(FILTER_CATEGORIES)];
 
 function StarRating({ rating }) {
   return (
@@ -87,6 +87,13 @@ export default function Catalogue() {
   const [search, setSearch] = useState("");
   const [selectedCat, setSelectedCat] = useState(searchParams.get("cat") || "All");
   const [sort, setSort] = useState("Featured");
+  const [books, setBooks] = useState(localBooks);
+
+  useEffect(() => {
+    api.catalogue({ q: search, category: selectedCat !== "All" ? selectedCat : "" })
+      .then(({ books: remoteBooks }) => setBooks(remoteBooks))
+      .catch(() => setBooks(localBooks));
+  }, [search, selectedCat]);
 
   const filtered = useMemo(() => {
     let result = [...books];
@@ -109,7 +116,7 @@ export default function Catalogue() {
     else if (sort === "Price: High to Low") result.sort((a, b) => b.price - a.price);
     else if (sort === "Highest Rated") result.sort((a, b) => b.rating - a.rating);
     return result;
-  }, [selectedCat, search, sort]);
+  }, [books, selectedCat, search, sort]);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
